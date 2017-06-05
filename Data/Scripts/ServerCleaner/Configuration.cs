@@ -4,6 +4,11 @@ namespace ServerCleaner
 {
 	public class Configuration
 	{
+
+        public bool DeletePirates_Enabled = false;
+        public int DeletePirates_Interval = 0;
+        public int DeletePirates_PlayerId = 0;
+
         public bool StopAllShips_Enabled = true;
         public int StopAllShips_Interval = 40 * 60 * 1000;
         

@@ -42,8 +42,15 @@ namespace ServerCleaner
 
 				if (updatables != null)
 				{
-					for (var actionIndex = 0; actionIndex < updatables.Length; actionIndex++)
-						updatables[actionIndex].UpdateAfterSimulation();
+                    for (var actionIndex = 0; actionIndex < updatables.Length; actionIndex++)
+                    {
+                        //check if iterating through all updatables
+                        //string tested = null;
+                        //tested = updatables[actionIndex].ToString();
+                        //Logger.WriteLine("debug test: {0} ", tested);
+
+                        updatables[actionIndex].UpdateAfterSimulation();
+                    }
 				}
 			}
 			catch (Exception ex)
@@ -125,8 +132,13 @@ namespace ServerCleaner
 
 				var config = GetConfiguration();
 				var vipNames = GetVipNames();
-
+                
 				var updatables = new List<IUpdatableAfterSimulation>();
+
+                if (config.DeletePirates_Enabled)
+                    updatables.Add(new DeleteNPCs(
+                        config.DeletePirates_Interval,
+                        config.DeletePirates_PlayerId));
 
                 if (config.StopAllShips_Enabled)
                     updatables.Add(new StopallShips(config.StopAllShips_Interval));

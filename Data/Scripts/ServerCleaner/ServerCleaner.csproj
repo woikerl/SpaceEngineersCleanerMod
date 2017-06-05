@@ -97,8 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
-    <Compile Include="MyLogger.cs" />
-    <Compile Include="Notifications.cs" />
+    <Compile Include="Updatables\Deleters\PirateDeleter.cs" />
     <Compile Include="Updatables\StopAllShips.cs" />
     <Compile Include="Updatables\IUpdatableAfterSimulation.cs" />
     <Compile Include="NewCubeGridAnnouncerLogic.cs" />
