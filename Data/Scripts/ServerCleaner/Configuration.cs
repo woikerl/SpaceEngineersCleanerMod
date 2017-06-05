@@ -4,6 +4,9 @@ namespace ServerCleaner
 {
 	public class Configuration
 	{
+        public bool StopAllShips_Enabled = true;
+        public int StopAllShips_Interval = 40 * 60 * 1000;
+        
 		public bool FloatingObjectDeletion_Enabled = true;
 		public int FloatingObjectDeletion_Interval = 7 * 60 * 1000;
 		public double FloatingObjectDeletion_PlayerDistanceThreshold = 100;

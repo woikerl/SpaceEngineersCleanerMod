@@ -128,6 +128,9 @@ namespace ServerCleaner
 
 				var updatables = new List<IUpdatableAfterSimulation>();
 
+                if (config.StopAllShips_Enabled)
+                    updatables.Add(new StopallShips(config.StopAllShips_Interval));
+
 				if (config.FloatingObjectDeletion_Enabled)
 					updatables.Add(new FloatingObjectDeleter(
 						config.FloatingObjectDeletion_Interval,

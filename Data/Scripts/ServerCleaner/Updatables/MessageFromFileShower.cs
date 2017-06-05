@@ -44,7 +44,7 @@ namespace ServerCleaner.Updatables
 		{
 			if (string.IsNullOrWhiteSpace(nextMessage))
 				return;
-
+            // consider changing this to notify
 			Utilities.ShowMessageFromServerToEveryone(nextMessage);
 			nextMessage = null;
 		}
