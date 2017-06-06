@@ -46,7 +46,7 @@ namespace ServerCleaner.Updatables.Deleters
 	public class ComplexCubeGridDeletionContext : CubeGridDeletionContext
 	{
 		public double PlayerDistanceThresholdForActualDeletion;
-
+        
 		public List<IMyIdentity> PlayerIdentities = new List<IMyIdentity>();
 		public List<long> OnlinePlayerIds = new List<long>();
 

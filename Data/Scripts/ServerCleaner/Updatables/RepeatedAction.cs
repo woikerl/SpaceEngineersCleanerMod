@@ -7,7 +7,7 @@ namespace ServerCleaner.Updatables
 		private bool runOnNextUpdate;
 		private Timer timer;
 
-		public RepeatedAction(double interval)
+        public RepeatedAction(double interval)
 		{
 			timer = new Timer();
 			timer.AutoReset = true;
