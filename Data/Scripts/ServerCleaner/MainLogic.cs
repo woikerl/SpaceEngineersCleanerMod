@@ -14,10 +14,14 @@ namespace ServerCleaner
 	[MySessionComponentDescriptor(MyUpdateOrder.AfterSimulation)]
 	public class MainLogic : MySessionComponentBase
 	{
-		// TODO: something that deletes shot up pirate drones, PirateDeleter deletes all pirate npcs and should be used rarely.
-		// TODO: start collecting player login times for future inactive player removal
-		// TODO: popups for players with grids in danger of being deleted
-        // TODO: creature / other npc deleter
+		// TODO: spider/dog/general consolidated npc periodic deletion.
+                // TODO: Pirate majority owned and damaged grids perdiodic deletion.
+                // TODO: Optional popups (rather than chat warnings) when online owners are in danger of having grids deleted.
+                // TODO: Configurable player (& faction?) and owned grids deletion based on last log in time.
+                // TODO: add player proximity to the pirate majority owner deletion rule to allow for ignore if player is close.
+                // TODO: add in game commands and secure them to admins only.
+
+	
 
 		private bool initialized, triedToInitialize, unloaded, registeredMessageHandlers;
 		private IUpdatableAfterSimulation[] updatables;
