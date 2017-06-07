@@ -21,7 +21,7 @@ namespace ServerCleaner
 
 		private bool initialized, triedToInitialize, unloaded, registeredMessageHandlers;
 		private IUpdatableAfterSimulation[] updatables;
-        private IUpdatableAfterSimulation[] DeleteonStart;
+             // private IUpdatableAfterSimulation[] DeleteonStart;
 		public override void UpdateAfterSimulation()
 		{
 			try
