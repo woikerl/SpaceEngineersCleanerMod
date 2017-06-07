@@ -14,13 +14,14 @@ namespace ServerCleaner
 	[MySessionComponentDescriptor(MyUpdateOrder.AfterSimulation)]
 	public class MainLogic : MySessionComponentBase
 	{
-		// TODO: something that deletes shot up pirate drones
+		// TODO: something that deletes shot up pirate drones, PirateDeleter deletes all pirate npcs and should be used rarely.
 		// TODO: start collecting player login times for future inactive player removal
 		// TODO: popups for players with grids in danger of being deleted
+        // TODO: creature / other npc deleter
 
 		private bool initialized, triedToInitialize, unloaded, registeredMessageHandlers;
 		private IUpdatableAfterSimulation[] updatables;
-
+        private IUpdatableAfterSimulation[] DeleteonStart;
 		public override void UpdateAfterSimulation()
 		{
 			try
@@ -126,19 +127,19 @@ namespace ServerCleaner
 
 		private void Initialize()
 		{
-			if (!MyAPIGateway.Multiplayer.MultiplayerActive || MyAPIGateway.Multiplayer.IsServer)
-			{
-				Logger.Initialize();
+            if (!MyAPIGateway.Multiplayer.MultiplayerActive || MyAPIGateway.Multiplayer.IsServer)
+            {
+                Logger.Initialize();
+                var config = GetConfiguration();
+                var vipNames = GetVipNames();
 
-				var config = GetConfiguration();
-				var vipNames = GetVipNames();
-                
-				var updatables = new List<IUpdatableAfterSimulation>();
+                var updatables = new List<IUpdatableAfterSimulation>();
 
-                if (config.DeletePirates_Enabled)
-                    updatables.Add(new DeleteNPCs(
-                        config.DeletePirates_Interval,
-                        config.DeletePirates_PlayerId));
+                if (config.DeletePirates_Enabled) 
+                updatables.Add(new DeleteNPCs(
+                    config.DeletePirates_Interval,
+                    config.DeletePirates_NPC_IdentityId));
+                    
 
                 if (config.StopAllShips_Enabled)
                     updatables.Add(new StopallShips(config.StopAllShips_Interval));
@@ -187,7 +188,8 @@ namespace ServerCleaner
 					updatables.Add(new PopupFromFileShower(config.PopupsFromFile_Interval));
 
 				this.updatables = updatables.ToArray();
-			}
+
+            }
 
 			if (MyAPIGateway.Multiplayer.MultiplayerActive && !MyAPIGateway.Multiplayer.IsServer)
 			{

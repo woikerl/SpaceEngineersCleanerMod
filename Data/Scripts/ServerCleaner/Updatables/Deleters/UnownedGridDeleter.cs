@@ -28,8 +28,11 @@ namespace ServerCleaner.Updatables.Deleters
 
 			if (context.CurrentEntitySlimBlocks.IsAttachedWheelGrid())
 				return false;
+            // probably dont need
+            //if (context.CurrentEntitySlimBlocks.Any(slimBlock => slimBlock.FatBlock != null && (slimBlock.FatBlock is IMyPistonTop || slimBlock.FatBlock is IMyMotorRotor || slimBlock.FatBlock is IMyMotorAdvancedRotor)))
+            //    return false;
 
-			return true;
+            return true;
 		}
 
 		protected override void AfterDeletion(CubeGridDeletionContext context)

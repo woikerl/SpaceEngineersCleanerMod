@@ -56,9 +56,13 @@ namespace ServerCleaner.Updatables.Deleters
 			if (context.CurrentEntitySlimBlocks.IsAttachedWheelGrid())
 				return false;
 
-			// Are any of the owners online or VIP?
+            // dont think this is needed. uncomment in the event getattachedgrids in utilities breaks.
+            //if (context.CurrentEntitySlimBlocks.Any(slimBlock => slimBlock.FatBlock != null && (slimBlock.FatBlock is IMyPistonTop || slimBlock.FatBlock is IMyMotorRotor || slimBlock.FatBlock is IMyMotorAdvancedRotor)))
+            //    return false;
 
-			var nameString = string.Format("{0} (owned by {1})", entity.DisplayName, Utilities.GetOwnerNameString(entity, context.PlayerIdentities));
+            // Are any of the owners online or VIP?
+
+            var nameString = string.Format("{0} (owned by {1})", entity.DisplayName, Utilities.GetOwnerNameString(entity, context.PlayerIdentities));
 
 			foreach (var ownerID in entity.SmallOwners)
 			{
@@ -107,7 +111,7 @@ namespace ServerCleaner.Updatables.Deleters
 
 			if (context.NameStringsForLaterDeletion.Count > 0)
 			{
-				ShowMessageFromServer("I'm going to delete the following unrenamed grid(s) later unless they are renamed or an antenna or a beacon is added: {0}",
+				ShowMessageFromServer("The following unrenamed grid(s) will be deleted later unless they are renamed or an antenna or a beacon is added: {0}",
 					string.Join(", ", context.NameStringsForLaterDeletion));
 			}
 		}

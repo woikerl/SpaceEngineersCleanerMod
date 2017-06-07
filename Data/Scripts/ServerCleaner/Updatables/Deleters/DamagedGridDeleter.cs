@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Sandbox.ModAPI.Ingame;
+using System.Linq;
 
 using VRage.Game.ModAPI;
 
@@ -27,8 +28,11 @@ namespace ServerCleaner.Updatables.Deleters
 
 			if (context.CurrentEntitySlimBlocks.IsAttachedWheelGrid())
 				return false;
+            // probably dont need this
+            //if (context.CurrentEntitySlimBlocks.Any(slimBlock => slimBlock.FatBlock != null && (slimBlock.FatBlock is IMyPistonTop || slimBlock.FatBlock is IMyMotorRotor || slimBlock.FatBlock is IMyMotorAdvancedRotor)))
+            //    return false;
 
-			return context.CurrentEntitySlimBlocks.Any(slimBlock => slimBlock.CurrentDamage > 0);
+            return context.CurrentEntitySlimBlocks.Any(slimBlock => slimBlock.CurrentDamage > 0);
 		}
 
 		protected override void AfterDeletion(CubeGridDeletionContext context)
