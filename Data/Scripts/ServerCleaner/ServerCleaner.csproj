@@ -97,7 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
-    <Compile Include="Updatables\Deleters\PirateDeleter.cs" />
+    <Compile Include="Updatables\Deleters\CreatureDeleter.cs" />
+    <Compile Include="Updatables\Deleters\OldPirateDeleter.cs" />
+    <Compile Include="Updatables\Deleters\NewPirateDeleter.cs" />
     <Compile Include="Updatables\StopAllShips.cs" />
     <Compile Include="Updatables\IUpdatableAfterSimulation.cs" />
     <Compile Include="NewCubeGridAnnouncerLogic.cs" />

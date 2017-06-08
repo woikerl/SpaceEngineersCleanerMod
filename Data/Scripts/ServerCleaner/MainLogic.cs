@@ -14,7 +14,7 @@ namespace ServerCleaner
 	[MySessionComponentDescriptor(MyUpdateOrder.AfterSimulation)]
 	public class MainLogic : MySessionComponentBase
 	{
-		           // TODO: spider/dog/general consolidated npc periodic deletion.
+		        // TODO: spider/dog/general consolidated npc periodic deletion.
                 // TODO: Pirate majority owned and damaged grids perdiodic deletion.
                 // TODO: Optional popups (rather than chat warnings) when online owners are in danger of having grids deleted.
                 // TODO: Configurable player (& faction?) and owned grids deletion based on last log in time.
@@ -25,7 +25,7 @@ namespace ServerCleaner
 
 		private bool initialized, triedToInitialize, unloaded, registeredMessageHandlers;
 		private IUpdatableAfterSimulation[] updatables;
-      // private IUpdatableAfterSimulation[] DeleteonStart;
+        // private IUpdatableAfterSimulation[] DeleteonStart;
 		public override void UpdateAfterSimulation()
 		{
 			try
@@ -139,10 +139,20 @@ namespace ServerCleaner
 
                 var updatables = new List<IUpdatableAfterSimulation>();
 
+                /*
                 if (config.DeletePirates_Enabled) 
-                updatables.Add(new DeleteNPCs(
-                    config.DeletePirates_Interval,
-                    config.DeletePirates_NPC_IdentityId));
+                    updatables.Add(new DeleteNPCs(
+                        config.DeletePirates_Interval,
+                        config.DeletePirates_NPC_IdentityId));
+                */            
+
+                if (config.DeletePirates_Enabled)
+                    updatables.Add(new DeletePirates(
+                        config.DeletePirates_Interval,
+                        config.DeletePirates_NPC_IdentityId,
+                        config.DeletePirates_PlayerDistanceThresholdForWarning,
+                        config.DeletePirates_PlayerDistanceThresholdForDeletion,
+                        config.DeletePirates_MessageAdminsOnly));
                     
 
                 if (config.StopAllShips_Enabled)

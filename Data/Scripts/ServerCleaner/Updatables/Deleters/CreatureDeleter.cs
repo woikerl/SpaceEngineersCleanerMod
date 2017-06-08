@@ -13,10 +13,10 @@ namespace ServerCleaner.Updatables.Deleters
     /// </summary>
     /// 
 
-    public class DeleteNPCs : RepeatedAction
+    public class DeleteCreatures : RepeatedAction
     {
 
-        public DeleteNPCs(double interval, long pirateid) : base(interval)
+        public DeleteCreatures(double interval, long pirateid) : base(interval)
         {
             var m_data = new MissionData();
             NPCid = pirateid;
