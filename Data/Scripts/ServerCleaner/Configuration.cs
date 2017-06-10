@@ -5,6 +5,24 @@ namespace ServerCleaner
 	public class Configuration
 	{
 
+        public bool BlockToggle_Enabled = false;
+        public int BlockToggle_Interval = 30 * 60 * 1000;
+        public bool BlockToggle_Power_Enabled = false;
+        public bool BlockToggle_Prod_Enabled = false;
+        public bool BlockToggle_Prog_Enabled = false;
+        public bool BlockToggle_Proj_Enabled = false;
+        public bool BlockToggle_Sensor_Enabled = false;
+        public bool BlockToggle_Spot_Enabled = false;
+        public bool BlockToggle_Timer_Enabled = false;
+        public bool BlockToggle_Weapons_Enabled = false;
+        //Set Medical block share to faction if set to all;
+        //Set Medical block power to off if nobody owns it.
+        public bool BlockToggle_MediFacNobody_Enabled = false;
+        public bool BlockToggle_Mass_Enabled = false;
+        public bool BlockToggle_Grav_Enabled = false;
+        public bool BlockToggle_Grinder_Enabled = false;
+        public bool BlockToggle_Welder_Enabled = false;
+
         public bool DeletePirates_Enabled = false;
         public int DeletePirates_Interval = 60 * 60 * 1000;
         public long DeletePirates_NPC_IdentityId = 0;

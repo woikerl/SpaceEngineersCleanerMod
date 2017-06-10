@@ -98,6 +98,7 @@
   <ItemGroup>
     <Compile Include="Configuration.cs" />
     <Compile Include="Updatables\Deleters\CreatureDeleter.cs" />
+    <Compile Include="Updatables\Deleters\BlockToggle.cs" />
     <Compile Include="Updatables\Deleters\OldPirateDeleter.cs" />
     <Compile Include="Updatables\Deleters\NewPirateDeleter.cs" />
     <Compile Include="Updatables\StopAllShips.cs" />

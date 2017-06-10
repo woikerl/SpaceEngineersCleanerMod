@@ -140,8 +140,10 @@ namespace ServerCleaner
                 var updatables = new List<IUpdatableAfterSimulation>();
 
                 /*
-                if (config.DeletePirates_Enabled) 
-                    updatables.Add(new DeleteNPCs(
+                if (config.BlockToggle_Enabled) 
+                    updatables.Add(new BlockToggle(
+                        config.BlockToggle_Interval,
+                      // if statement to control if each toggle is added?
                         config.DeletePirates_Interval,
                         config.DeletePirates_NPC_IdentityId));
                 */            
