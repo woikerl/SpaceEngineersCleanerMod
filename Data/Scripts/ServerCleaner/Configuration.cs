@@ -7,6 +7,9 @@ namespace ServerCleaner
 
         public bool BlockToggle_Enabled = false;
         public int BlockToggle_Interval = 30 * 60 * 1000;
+        [XmlArrayItem(ElementName = "BlockType", Type = typeof(string))]
+        public string[] BlockToggle_BlockNames = { "MyObjectBuilder_MyProgrammableBlock", "MyObjectBuilder_Projector", "MyObjectBuilder_TimerBlock", "MyObjectBuilder_SensorBlock","MyObjectBuilder_VirtualMass","MyObjectBuilder_SpaceBall","MyObjectBuilder_OreDetector","MyObjectBuilder_GravityGenerator","MyObjectBuilder_GravityGeneratorSphere","MyObjectBuilder_Decoy","MyObjectBuilder_MotorStator","MyObjectBuilder_MotorAdvancedStator","MyObjectBuilder_ExtendedPistonBase","MyObjectBuilder_PistonBase","MyObjectBuilder_Drill","MyObjectBuilder_ShipWelder","MyObjectBuilder_ShipGrinder" };
+        /*
         public bool BlockToggle_Power_Enabled = false;
         public bool BlockToggle_Prod_Enabled = false;
         public bool BlockToggle_Prog_Enabled = false;
@@ -22,6 +25,10 @@ namespace ServerCleaner
         public bool BlockToggle_Grav_Enabled = false;
         public bool BlockToggle_Grinder_Enabled = false;
         public bool BlockToggle_Welder_Enabled = false;
+        */
+        public double BlockToggle_PlayerDistanceThresholdForWarning = 1000;
+        public double BlockToggle_PlayerDistanceThresholdForDeletion = 8000;
+        public bool BlockToggle_MessageAdminsOnly = true;
 
         public bool DeletePirates_Enabled = false;
         public int DeletePirates_Interval = 60 * 60 * 1000;
