@@ -10,21 +10,21 @@ namespace ServerCleaner.Updatables.Deleters
 	// but the code might be cleaner without them. Alternatively, they could
 	// be expanded to include some kind of caching...
 
-	public class BlockContext<TEntity>
+	public class GridContext<TEntity>
 	{
 		public double PlayerDistanceThresholdForAct;
 
-		public HashSet<IMyEntity> Blocks = new HashSet<IMyEntity>();
+		public HashSet<IMyEntity> Grids = new HashSet<IMyEntity>();
 		public List<IMyPlayer> Players = new List<IMyPlayer>();
 		public List<Vector3D> PlayerPositions = new List<Vector3D>();
 
-		public List<IMyEntity> BlocksForUpdate = new List<IMyEntity>();
-		public List<string> BlocksForUpdateNames = new List<string>();
+		public List<IMyEntity> GridsForUpdate = new List<IMyEntity>();
+		public List<string> GridsForUpdateNames = new List<string>();
 
 		public virtual void Prepare()
 		{
-			Blocks.Clear();
-			MyAPIGateway.Entities.GetEntities(Blocks, entity => entity is TEntity);
+			Grids.Clear();
+			MyAPIGateway.Entities.GetEntities(Grids, entity => entity is TEntity);
 
 			Players.Clear();
 			MyAPIGateway.Players.GetPlayers(Players, player => player != null);
@@ -33,12 +33,12 @@ namespace ServerCleaner.Updatables.Deleters
 			foreach (var player in Players)
 				PlayerPositions.Add(player.GetPosition());
 
-			BlocksForUpdate.Clear();
-			BlocksForUpdateNames.Clear();
+			GridsForUpdate.Clear();
+			GridsForUpdateNames.Clear();
 		}
 	}
     //changing this to IMyCubeBlock clears error in blocktoggle.cs but i doubt this is going to yield the desired function
-	public class CubeGridBlockContext : BlockContext<IMyCubeGrid>
+	public class CubeGridBlockContext : GridContext<IMyCubeGrid>
 	{
 		public List<IMySlimBlock> CurrentEntitySlimBlocks = new List<IMySlimBlock>();
 	}

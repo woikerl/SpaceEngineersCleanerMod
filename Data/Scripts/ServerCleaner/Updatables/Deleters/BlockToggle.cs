@@ -2,16 +2,20 @@
 using System.Linq;
 using VRage.Game;
 using VRage.Game.ModAPI;
+using System.Collections.Generic;
 
 namespace ServerCleaner.Updatables.Deleters
 {
-	public class BlockToggle : RepeatedBlockAction<IMyCubeBlock, ComplexCubeGridBlockContext>
+
+    //you decided since this is already looping through grids half your work may be done.
+    //need to find out how to take the grid and then loop through or check the blocks within the grid.
+    public class BlockToggle : RepeatedBlockAction<IMyCubeGrid, ComplexCubeGridBlockContext>
     {
         private string[] BlockNames;
 
 
         public BlockToggle(double interval, string[] BlockNames, double playerDistanceThresholdForWarning, double playerDistanceThresholdForAction, bool messageAdminsOnly)
-			: base(interval, messageAdminsOnly, new ComplexCubeGridBlockContext()
+			: base(interval, messageAdminsOnly, BlockNames, new ComplexCubeGridBlockContext()
 		{
 			PlayerDistanceThresholdForAct = playerDistanceThresholdForWarning,
 			PlayerDistanceThresholdForActualAction = playerDistanceThresholdForAction
@@ -21,39 +25,57 @@ namespace ServerCleaner.Updatables.Deleters
 		}
 
 
-        protected override bool BeforeAction(IMyCubeBlock entity, ComplexCubeGridBlockContext context)
+        protected override bool BeforeAction(IMyCubeGrid entity, ComplexCubeGridBlockContext context)
         {
-                // Is it a toggle block?
 
-                if (!BlockNames.Contains(entity.BlockDefinition.TypeIdString))
-                    return false;
+            //trying to integrate midspace' strategy here
+            int counter = 0;
+            var blocks = new List<IMySlimBlock>();
+            entity.GetBlocks(blocks, f => f.FatBlock != null);
 
-                // Are any of the owners online?
 
-                var nameString = string.Format("{0} (owned by {1})", entity.DisplayName, Utilities.GetOwnerNameString(entity, context.PlayerIdentities));
+            // Are any of the owners online?
 
-                if (!context.OnlinePlayerIds.Contains(entity.OwnerId))
-                {
-                    // owner is online, warn him
+            var nameString = string.Format("{0} (owned by {1})", entity.DisplayName, Utilities.GetOwnerNameString(entity, context.PlayerIdentities));
 
-                    context.NameStringsForLaterBlockAction.Add(nameString);
-                    return false;
-                }
-                // Are any other players nearby?
+            foreach (var ownerID in entity.SmallOwners)
+            {
+                if (!context.OnlinePlayerIds.Contains(ownerID))
+                    continue;
 
-                if (context.PlayerDistanceThresholdForActualAction > 0 && Utilities.AnyWithinDistance(entity.GetPosition(), context.PlayerPositions, context.PlayerDistanceThresholdForActualAction))
-                    return false;
+                // At least one owner is online, warn him
 
-                context.NameStringsForBlockAction.Add(nameString);
+                context.NameStringsForLaterBlockAction.Add(nameString);
+                return false;
+            }
+
+            // Are any other players nearby?
+
+            if (context.PlayerDistanceThresholdForActualAction > 0 && Utilities.AnyWithinDistance(entity.GetPosition(), context.PlayerPositions, context.PlayerDistanceThresholdForActualAction))
+                return false;
+
+            // locate all toggle blocks if any
+
+            foreach (var block in blocks)
+            {
+                // now here we need the logic to loop through the blocks to identify if any of the names match the configuration list.
+                if (BlockNames.Contains(block.FatBlock.BlockDefinition.TypeIdString))
+                    counter++;
+            }
+            if (counter == 0)
+                return false;
+
+
+            context.NameStringsForBlockAction.Add(nameString);
                 return true;
         }
 
         protected override void AfterAction(ComplexCubeGridBlockContext context)
         {
-                if (context.BlocksForUpdate.Count > 0)
+                if (context.GridsForUpdate.Count > 0)
                 {
                     ShowMessageFromServer("Turned off {0} block(s) that had no owner online and no players within {1} m: {2}.",
-                        context.BlocksForUpdate.Count, context.PlayerDistanceThresholdForActualAction, string.Join(", ", context.NameStringsForBlockAction));
+                        context.GridsForUpdate.Count, context.PlayerDistanceThresholdForActualAction, string.Join(", ", context.NameStringsForBlockAction));
                 }
 
                 if (context.NameStringsForLaterBlockAction.Count > 0)
