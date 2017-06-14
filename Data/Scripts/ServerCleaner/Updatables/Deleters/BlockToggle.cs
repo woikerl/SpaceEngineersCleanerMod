@@ -12,9 +12,9 @@ namespace ServerCleaner.Updatables.Deleters
     public class BlockToggle : RepeatedBlockAction<IMyCubeGrid, ComplexCubeGridBlockContext>
     {
         private string[] BlockNames;
+        private List<string> vipNames;
 
-
-        public BlockToggle(double interval, string[] BlockNames, double playerDistanceThresholdForWarning, double playerDistanceThresholdForAction, bool messageAdminsOnly)
+        public BlockToggle(double interval, string[] BlockNames, double playerDistanceThresholdForWarning, double playerDistanceThresholdForAction, bool messageAdminsOnly, List<string> vipNames)
 			: base(interval, messageAdminsOnly, BlockNames, new ComplexCubeGridBlockContext()
 		{
 			PlayerDistanceThresholdForAct = playerDistanceThresholdForWarning,
@@ -22,7 +22,9 @@ namespace ServerCleaner.Updatables.Deleters
 		})
 		{
 			this.BlockNames = BlockNames;
-		}
+            this.vipNames = vipNames;
+
+        }
 
 
         protected override bool BeforeAction(IMyCubeGrid entity, ComplexCubeGridBlockContext context)
@@ -34,12 +36,17 @@ namespace ServerCleaner.Updatables.Deleters
             entity.GetBlocks(blocks, f => f.FatBlock != null);
 
 
-            // Are any of the owners online?
+            // Are any of the owners online or VIP?
 
             var nameString = string.Format("{0} (owned by {1})", entity.DisplayName, Utilities.GetOwnerNameString(entity, context.PlayerIdentities));
 
             foreach (var ownerID in entity.SmallOwners)
             {
+
+                if (context.PlayerIdentities.Any(identity => identity.IdentityId == ownerID && vipNames.Contains(identity.DisplayName)))
+                    return false;
+
+
                 if (!context.OnlinePlayerIds.Contains(ownerID))
                     continue;
 

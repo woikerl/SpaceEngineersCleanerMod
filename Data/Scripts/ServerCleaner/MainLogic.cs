@@ -146,7 +146,8 @@ namespace ServerCleaner
                         config.BlockToggle_BlockNames,
                         config.BlockToggle_PlayerDistanceThresholdForWarning,
                         config.BlockToggle_PlayerDistanceThresholdForToggle,
-                        config.BlockToggle_MessageAdminsOnly));
+                        config.BlockToggle_MessageAdminsOnly,
+                        vipNames));
                 
 
                 if (config.DeletePirates_Enabled)
