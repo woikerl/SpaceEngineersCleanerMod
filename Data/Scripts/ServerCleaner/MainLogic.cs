@@ -145,7 +145,7 @@ namespace ServerCleaner
                         config.BlockToggle_Interval,
                         config.BlockToggle_BlockNames,
                         config.BlockToggle_PlayerDistanceThresholdForWarning,
-                        config.BlockToggle_PlayerDistanceThresholdForDeletion,
+                        config.BlockToggle_PlayerDistanceThresholdForToggle,
                         config.BlockToggle_MessageAdminsOnly));
                 
 

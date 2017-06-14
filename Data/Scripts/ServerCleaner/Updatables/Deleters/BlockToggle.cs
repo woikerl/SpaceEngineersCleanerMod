@@ -60,7 +60,17 @@ namespace ServerCleaner.Updatables.Deleters
             {
                 // now here we need the logic to loop through the blocks to identify if any of the names match the configuration list.
                 if (BlockNames.Contains(block.FatBlock.BlockDefinition.TypeIdString))
-                    counter++;
+                {
+                    //debug if statement code below
+                    if (((IMyFunctionalBlock)block.FatBlock).Enabled == true)
+                    {
+                    //    ((IMyFunctionalBlock)block.FatBlock).Enabled = false; // turn power on/off.
+                    //    var ex = "";
+                    //    ShowMessageFromServer("Debug: enable code reached" + ex);
+
+                        counter++;
+                    }
+                }
             }
             if (counter == 0)
                 return false;
@@ -74,13 +84,13 @@ namespace ServerCleaner.Updatables.Deleters
         {
                 if (context.GridsForUpdate.Count > 0)
                 {
-                    ShowMessageFromServer("Turned off {0} block(s) that had no owner online and no players within {1} m: {2}.",
+                    ShowMessageFromServer("Turned off block(s) on {0} grids that had no owner online and no players within {1} m: {2}.",
                         context.GridsForUpdate.Count, context.PlayerDistanceThresholdForActualAction, string.Join(", ", context.NameStringsForBlockAction));
                 }
 
                 if (context.NameStringsForLaterBlockAction.Count > 0)
                 {
-                    ShowMessageFromServer("has configured some blocks to be switched off when their owners are offline.",
+                    ShowMessageFromServer("Some blocks will be switched off on the following grids when their owners are offline: {0}",
                         string.Join(", ", context.NameStringsForLaterBlockAction));
                 }
         }

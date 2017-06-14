@@ -26,8 +26,8 @@ namespace ServerCleaner
         public bool BlockToggle_Grinder_Enabled = false;
         public bool BlockToggle_Welder_Enabled = false;
         */
-        public double BlockToggle_PlayerDistanceThresholdForWarning = 1000;
-        public double BlockToggle_PlayerDistanceThresholdForDeletion = 8000;
+        public double BlockToggle_PlayerDistanceThresholdForWarning = 500;
+        public double BlockToggle_PlayerDistanceThresholdForToggle = 1000;
         public bool BlockToggle_MessageAdminsOnly = true;
 
         public bool DeletePirates_Enabled = false;

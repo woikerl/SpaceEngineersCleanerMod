@@ -24,9 +24,10 @@ namespace ServerCleaner.Updatables.Deleters
 		public virtual void Prepare()
 		{
 			Grids.Clear();
-			MyAPIGateway.Entities.GetEntities(Grids, entity => entity is TEntity);
+            //MyAPIGateway.Entities.GetEntities(Grids, entity => entity is TEntity);
+            MyAPIGateway.Entities.GetEntities(Grids, e => e is IMyCubeGrid);
 
-			Players.Clear();
+            Players.Clear();
 			MyAPIGateway.Players.GetPlayers(Players, player => player != null);
 
 			PlayerPositions.Clear(); // Player positions are used by some deleters even when PlayerDistanceThreshold == 0
