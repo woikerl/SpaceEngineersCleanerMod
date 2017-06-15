@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 
 using Sandbox.ModAPI;
 using VRage.Game.ModAPI;
+using VRage.Game;
 
 namespace ServerCleaner.Updatables.Deleters
 {
@@ -107,13 +108,17 @@ namespace ServerCleaner.Updatables.Deleters
 			{
 				ShowMessageFromServer("Deleted {0} unrenamed grid(s) with no antennas or beacons that had no owner online and no players within {1} m: {2}.",
 					context.EntitiesForDeletion.Count, context.PlayerDistanceThresholdForActualDeletion, string.Join(", ", context.NameStringsForDeletion));
-			}
 
-			if (context.NameStringsForLaterDeletion.Count > 0)
+            }
+
+            if (context.NameStringsForLaterDeletion.Count > 0)
 			{
 				ShowMessageFromServer("The following unrenamed grid(s) will be deleted later unless they are renamed or an antenna or a beacon is added: {0}",
 					string.Join(", ", context.NameStringsForLaterDeletion));
-			}
-		}
+                MyAPIGateway.Utilities.ShowNotification("Server: Offline owner grid cleanup is configured!", 40000, MyFontEnum.Green);
+                MyAPIGateway.Utilities.ShowNotification("Unrenamed grids OR grids with no beacon or antenna will be deleted!", 40000, MyFontEnum.Green);
+                MyAPIGateway.Utilities.ShowNotification("Remember to rename your ships OR attach a beacon or antenna.", 40000, MyFontEnum.Green);
+            }
+        }
 	}
 }
