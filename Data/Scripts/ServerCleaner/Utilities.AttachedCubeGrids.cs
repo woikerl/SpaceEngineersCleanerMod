@@ -47,18 +47,24 @@ namespace ServerCleaner
 				foreach (var slimBlock in slimBlocks)
 				{
 					var fatBlock = slimBlock.FatBlock;
-
+                    // keen deprecated IMyMotorBase and IMyMotorRotor
 					{
-						var motorBase = fatBlock as IMyMotorBase;
-						if (motorBase != null && TryAddDistinctCubeGrid(motorBase.RotorGrid, attachedCubeGrids))
-							cubeGridsToVisit.Enqueue(motorBase.RotorGrid);
+                        var motorBase = fatBlock as IMyMechanicalConnectionBlock;
+                        //var motorBase = fatBlock as IMyMotorBase;
+						if (motorBase != null && TryAddDistinctCubeGrid(motorBase.TopGrid, attachedCubeGrids))
+						//if (motorBase != null && TryAddDistinctCubeGrid(motorBase.RotorGrid, attachedCubeGrids))
+							cubeGridsToVisit.Enqueue(motorBase.TopGrid);
+							//cubeGridsToVisit.Enqueue(motorBase.RotorGrid);
 					}
 
 					{
-						var motorRotor = fatBlock as IMyMotorRotor;
+                        var motorRotor = fatBlock as IMyAttachableTopBlock;
+                        //var motorRotor = fatBlock as IMyMotorRotor;
 
-						if (motorRotor != null && motorRotor.Stator != null && TryAddDistinctCubeGrid(motorRotor.Stator.CubeGrid, attachedCubeGrids))
-							cubeGridsToVisit.Enqueue(motorRotor.Stator.CubeGrid);
+						if (motorRotor != null && motorRotor.Base != null && TryAddDistinctCubeGrid(motorRotor.Base.CubeGrid, attachedCubeGrids))
+						//if (motorRotor != null && motorRotor.Stator != null && TryAddDistinctCubeGrid(motorRotor.Stator.CubeGrid, attachedCubeGrids))
+							cubeGridsToVisit.Enqueue(motorRotor.Base.CubeGrid);
+                            //cubeGridsToVisit.Enqueue(motorRotor.Stator.CubeGrid);
 					}
 
 					{
