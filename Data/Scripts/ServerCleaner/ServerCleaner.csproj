@@ -101,6 +101,7 @@
     <Compile Include="Updatables\Deleters\BlockContexts.cs" />
     <Compile Include="Updatables\Deleters\NewPirateDeleter.cs" />
     <Compile Include="Updatables\Deleters\RepeatedBlockAction.cs" />
+    <Compile Include="Updatables\CleanPlanets.cs" />
     <Compile Include="Updatables\StopAllShips.cs" />
     <Compile Include="Updatables\IUpdatableAfterSimulation.cs" />
     <Compile Include="NewCubeGridAnnouncerLogic.cs" />

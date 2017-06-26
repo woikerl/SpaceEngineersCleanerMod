@@ -39,8 +39,11 @@ namespace ServerCleaner
 
         public bool StopAllShips_Enabled = true;
         public int StopAllShips_Interval = 42 * 60 * 1000;
-        
-		public bool FloatingObjectDeletion_Enabled = true;
+
+        public bool CleanPlanets_Enabled = true;
+        public int CleanPlanets_Interval = 14 * 60 * 1000;
+
+        public bool FloatingObjectDeletion_Enabled = true;
 		public int FloatingObjectDeletion_Interval = 7 * 60 * 1000;
 		public double FloatingObjectDeletion_PlayerDistanceThreshold = 100;
 		public bool FloatingObjectDeletion_MessageAdminsOnly = true;

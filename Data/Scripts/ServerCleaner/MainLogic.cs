@@ -162,6 +162,10 @@ namespace ServerCleaner
                 if (config.StopAllShips_Enabled)
                     updatables.Add(new StopallShips(config.StopAllShips_Interval));
 
+                if (config.CleanPlanets_Enabled)
+                    updatables.Add(new CleanPlanets(config.CleanPlanets_Interval));
+
+
 				if (config.FloatingObjectDeletion_Enabled)
 					updatables.Add(new FloatingObjectDeleter(
 						config.FloatingObjectDeletion_Interval,
