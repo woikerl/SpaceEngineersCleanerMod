@@ -22,15 +22,17 @@ namespace ServerCleaner
 
 			return slimBlocks.Any(slimBlock =>
 			{
-				if (slimBlock.FatBlock == null)
-					return false;
+				//if (slimBlock.FatBlock == null)
+				//	return false;
 
-				var TopPart = slimBlock.FatBlock as IMyAttachableTopBlock;
+                //var TopPart = slimBlock.FatBlock as IMyAttachableTopBlock;
+
+                var Wheel = slimBlock.FatBlock as IMyWheel;
 
                 //if (wheel != null)
-                 //   return true;
+                //   return true;
 
-                return TopPart != null && TopPart.IsAttached;
+                return Wheel != null && Wheel.IsAttached;
 
                 //TopPart.BlockDefinition.TypeId = "Wheel";
 
