@@ -32,6 +32,8 @@ namespace ServerCleaner
 
                 return TopPart != null && TopPart.IsAttached;
 
+                //TopPart.BlockDefinition.TypeId = "Wheel";
+
                 //return false;
 			});
 		}
