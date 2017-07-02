@@ -12,42 +12,23 @@ namespace ServerCleaner
 		// Workaround for bug in 01_149_005: IMyWheel.Stator is always null, even when .IsAttached = true
 		public static bool IsAttachedWheelGrid(this List<IMySlimBlock> slimBlocks)
 		{
-            //bool gridHasStators = slimBlocks.Any(slimBlock => slimBlock.FatBlock != null && slimBlock.FatBlock is IMyMotorStator);
+			var gridHasStators = slimBlocks.Any(slimBlock => slimBlock.FatBlock != null && slimBlock.FatBlock is IMyMotorStator);
 
-            //if (gridHasStators)
-            //	return false;
-
-            //if (slimBlocks.Count > 1)
-            //    return false;
+			if (gridHasStators)
+				return false;
 
 			return slimBlocks.Any(slimBlock =>
 			{
 				if (slimBlock.FatBlock == null)
 					return false;
 
-				var TopPart = slimBlock.FatBlock as IMyAttachableTopBlock;
+				var wheel = slimBlock.FatBlock as IMyWheel;
 
-                //if (wheel != null)
-                 //   return true;
-
-                return TopPart != null && TopPart.IsAttached;
-
-                //return false;
+				return wheel != null && wheel.IsAttached;
 			});
 		}
 
-        public static bool withStators(this List<IMySlimBlock> slimBlocks)
-        {
-            var gridHasStators = slimBlocks.Any(slimBlock => slimBlock.FatBlock != null && slimBlock.FatBlock is IMyMotorStator);
-
-
-            if (gridHasStators)
-                return false;
-
-            return true;
-        }
-
-        public static List<IMyCubeGrid> GetAttachedCubeGrids(IMyCubeGrid cubeGrid)
+		public static List<IMyCubeGrid> GetAttachedCubeGrids(IMyCubeGrid cubeGrid)
 		{
 			var attachedCubeGrids = new List<IMyCubeGrid>();
 
@@ -68,28 +49,24 @@ namespace ServerCleaner
 					var fatBlock = slimBlock.FatBlock;
                     // keen deprecated IMyMotorBase and IMyMotorRotor
 					{
-                        var MechBase = fatBlock as IMyMechanicalConnectionBlock;
+                        var motorBase = fatBlock as IMyMechanicalConnectionBlock;
                         //var motorBase = fatBlock as IMyMotorBase;
-						if (MechBase != null && TryAddDistinctCubeGrid(MechBase.TopGrid, attachedCubeGrids))
+						if (motorBase != null && TryAddDistinctCubeGrid(motorBase.TopGrid, attachedCubeGrids))
 						//if (motorBase != null && TryAddDistinctCubeGrid(motorBase.RotorGrid, attachedCubeGrids))
-							cubeGridsToVisit.Enqueue(MechBase.TopGrid);
+							cubeGridsToVisit.Enqueue(motorBase.TopGrid);
 							//cubeGridsToVisit.Enqueue(motorBase.RotorGrid);
 					}
 
 					{
-                        var MechTopPart = fatBlock as IMyAttachableTopBlock;
+                        var motorRotor = fatBlock as IMyAttachableTopBlock;
                         //var motorRotor = fatBlock as IMyMotorRotor;
 
-						if (MechTopPart != null && MechTopPart.Base != null && TryAddDistinctCubeGrid(MechTopPart.Base.CubeGrid, attachedCubeGrids))
+						if (motorRotor != null && motorRotor.Base != null && TryAddDistinctCubeGrid(motorRotor.Base.CubeGrid, attachedCubeGrids))
 						//if (motorRotor != null && motorRotor.Stator != null && TryAddDistinctCubeGrid(motorRotor.Stator.CubeGrid, attachedCubeGrids))
-							cubeGridsToVisit.Enqueue(MechTopPart.Base.CubeGrid);
+							cubeGridsToVisit.Enqueue(motorRotor.Base.CubeGrid);
                             //cubeGridsToVisit.Enqueue(motorRotor.Stator.CubeGrid);
 					}
 
-
-
-
-                    /*
 					{
 						var pistonBase = fatBlock as IMyPistonBase;
 						if (pistonBase != null && TryAddDistinctCubeGrid(pistonBase.TopGrid, attachedCubeGrids))
@@ -101,17 +78,7 @@ namespace ServerCleaner
 						if (pistonTop != null && pistonTop.Piston != null && TryAddDistinctCubeGrid(pistonTop.Piston.CubeGrid, attachedCubeGrids))
 							cubeGridsToVisit.Enqueue(pistonTop.Piston.CubeGrid);
 					}
-                    */
-
-                    //{
-                    //    var gridHasStators = fatBlock as IMyMotorStator
-                    
-                    //    slimBlocks.Any(slimBlock => slimBlock.FatBlock != null && slimBlock.FatBlock is IMyMotorStator);
-                    //    if (gridHasStators)
-
-                    //}                    
-
-                }
+				}
 			}
 
 			return attachedCubeGrids;

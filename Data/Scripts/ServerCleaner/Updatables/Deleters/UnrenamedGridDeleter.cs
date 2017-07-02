@@ -39,15 +39,9 @@ namespace ServerCleaner.Updatables.Deleters
 
 		protected override bool BeforeDelete(IMyCubeGrid entity, ComplexCubeGridDeletionContext context)
 		{
+			// Is the grid unrenamed?
 
-            // Wheel stator=null workaround
-
-            if (context.CurrentEntitySlimBlocks.IsAttachedWheelGrid())
-                return false;
-
-            // Is the grid unrenamed?
-
-            if (!IsNameDefault(entity.DisplayName))
+			if (!IsNameDefault(entity.DisplayName))
 				return false;
 
 			// Is there a beacon or an antenna? Merge blocks reset ship names, renaming can get quite tedious
@@ -57,6 +51,15 @@ namespace ServerCleaner.Updatables.Deleters
 
 			if (context.CurrentEntitySlimBlocks.Any(slimBlock => slimBlock.FatBlock != null && (slimBlock.FatBlock is IMyRadioAntenna || slimBlock.FatBlock is IMyBeacon)))
 				return false;
+
+			// Wheel stator=null workaround
+
+			if (context.CurrentEntitySlimBlocks.IsAttachedWheelGrid())
+				return false;
+
+            // dont think this is needed. uncomment in the event getattachedgrids in utilities breaks.
+            //if (context.CurrentEntitySlimBlocks.Any(slimBlock => slimBlock.FatBlock != null && (slimBlock.FatBlock is IMyPistonTop || slimBlock.FatBlock is IMyMotorRotor || slimBlock.FatBlock is IMyMotorAdvancedRotor)))
+            //    return false;
 
             // Are any of the owners online or VIP?
 

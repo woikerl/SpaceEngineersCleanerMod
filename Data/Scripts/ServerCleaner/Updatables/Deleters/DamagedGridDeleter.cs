@@ -20,15 +20,17 @@ namespace ServerCleaner.Updatables.Deleters
 
 		protected override bool BeforeDelete(IMyCubeGrid entity, CubeGridDeletionContext context)
 		{
-
-            if (context.CurrentEntitySlimBlocks.IsAttachedWheelGrid())
-                return false;
-
-            context.CurrentEntitySlimBlocks.Clear();
+			context.CurrentEntitySlimBlocks.Clear();
 			entity.GetBlocksIncludingFromStaticallyAttachedCubeGrids(context.CurrentEntitySlimBlocks);
 
 			if (context.CurrentEntitySlimBlocks.Count > blockCountThreshold)
 				return false;
+
+			if (context.CurrentEntitySlimBlocks.IsAttachedWheelGrid())
+				return false;
+            // probably dont need this
+            //if (context.CurrentEntitySlimBlocks.Any(slimBlock => slimBlock.FatBlock != null && (slimBlock.FatBlock is IMyPistonTop || slimBlock.FatBlock is IMyMotorRotor || slimBlock.FatBlock is IMyMotorAdvancedRotor)))
+            //    return false;
 
             return context.CurrentEntitySlimBlocks.Any(slimBlock => slimBlock.CurrentDamage > 0);
 		}
