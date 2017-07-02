@@ -20,7 +20,10 @@ namespace ServerCleaner.Updatables.Deleters
 			if (entity.SmallOwners.Count > 0)
 				return false;
 
-			context.CurrentEntitySlimBlocks.Clear();
+            //if (context.CurrentEntitySlimBlocks.IsAttachedWheelGrid())
+            //    return false;
+
+            context.CurrentEntitySlimBlocks.Clear();
 			entity.GetBlocksIncludingFromStaticallyAttachedCubeGrids(context.CurrentEntitySlimBlocks);
 
 			if (context.CurrentEntitySlimBlocks.Count > BlockCountThreshold)
