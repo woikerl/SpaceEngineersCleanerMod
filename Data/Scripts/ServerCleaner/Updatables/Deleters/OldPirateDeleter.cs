@@ -72,7 +72,7 @@ namespace ServerCleaner.Updatables.Deleters
                     if (checkOwners(s))
                     {
                         if (s != null) return true;
-                        //(s as IMyCubeGrid).SyncObject.SendCloseRequest();
+                        //(s as IMyCubeGrid).SyncObject.Entity.Close();
                         //write to log if ship is deleted
                         //string tested = null;
                         //tested = s.ToString();
@@ -101,7 +101,9 @@ namespace ServerCleaner.Updatables.Deleters
                 if (checkOwners(s))
                 {
                     if (s == null) return;
-                    (s as IMyCubeGrid).SyncObject.SendCloseRequest();
+                    (s as IMyCubeGrid).SyncObject.Entity.Close();
+                    //below is deprecated
+                    //(s as IMyCubeGrid).SyncObject.SendCloseRequest();
                     //write to log if ship is deleted
                     string tested = null;
                     tested = s.ToString(); 
