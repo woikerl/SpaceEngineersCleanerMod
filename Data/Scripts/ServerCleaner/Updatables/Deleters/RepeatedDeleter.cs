@@ -49,10 +49,10 @@ namespace ServerCleaner.Updatables.Deleters
 
 					foreach (var entity in context.EntitiesForDeletion)
 					{
-						if (entity.SyncObject == null)
-							entity.Delete();
-						else
-							entity.SyncObject.SendCloseRequest();
+                        if (entity.SyncObject == null)
+                            entity.Delete();
+                        else
+                            entity.SyncObject.Entity.Close();
 
 						context.EntitiesForDeletionNames.Add(entity.DisplayName);
 					}
