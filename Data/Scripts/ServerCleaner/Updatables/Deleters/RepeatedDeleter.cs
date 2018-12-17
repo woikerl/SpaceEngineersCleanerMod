@@ -53,6 +53,7 @@ namespace ServerCleaner.Updatables.Deleters
                             entity.Delete();
                         else
                             entity.SyncObject.Entity.Close();
+                            //entity.SyncObject.SendCloseRequest();
 
 						context.EntitiesForDeletionNames.Add(entity.DisplayName);
 					}
