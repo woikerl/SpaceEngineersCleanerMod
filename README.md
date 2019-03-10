@@ -1,7 +1,12 @@
-Server Cleaner
-==============
+Space Engineers Server Tools
+============================
 
-original mod on [Steam workshop](http://steamcommunity.com/sharedfiles/filedetails/?id=666848746) Thanks to hdparm!
+Based on 
+[EX_Server Cleaner](http://steamcommunity.com/sharedfiles/filedetails/?id) by ... and its predecessor 
+[Server Cleaner](http://steamcommunity.com/sharedfiles/filedetails/?id=666848746) by hdparm. Thanks to both!
 
-original [source](https://github.com/dlbd/SpaceEngineersCleanerMod)
-and [license](https://creativecommons.org/licenses/by-sa/4.0/) (for the source code only): CC BY-SA 4.0[creativecommons.org]
+Sources: 
+[EX_Server Cleaner](https://github.com/.../SpaceEngineersCleanerMod) and 
+[Server Cleaner](https://github.com/dlbd/SpaceEngineersCleanerMod)
+
+License:  [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
