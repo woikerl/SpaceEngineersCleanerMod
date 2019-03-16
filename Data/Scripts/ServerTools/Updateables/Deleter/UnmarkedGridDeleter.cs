@@ -81,13 +81,13 @@ namespace ServerTools.Updateables.Deleter
             if (context.EntitiesForDeletion.Count > 0)
             {
                 ShowMessageFromServer("Deleted {0} unmarked grid(s):\n{1}.",
-                    context.EntitiesForDeletion.Count, string.Join("\n", context.NameStringsForDeletion));
+                    context.EntitiesForDeletion.Count, string.Join(",\n", context.NameStringsForDeletion));
             }
 
             if (context.NameStringsForLaterDeletion.Count <= 0) return;
 
             ShowMessageFromServer("{0} unmarked grid(s) may get deleted soon:\n{1}",
-                context.NameStringsForLaterDeletion.Count, string.Join("\n", context.NameStringsForLaterDeletion));
+                context.NameStringsForLaterDeletion.Count, string.Join(",\n", context.NameStringsForLaterDeletion));
 
             MyAPIGateway.Utilities.ShowNotification("Server: Offline owner grid cleanup is configured!", 30000,
                 MyFontEnum.Green);

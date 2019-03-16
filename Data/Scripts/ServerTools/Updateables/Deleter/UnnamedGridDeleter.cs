@@ -108,7 +108,7 @@ namespace ServerTools.Updateables.Deleter
 
             if (context.NameStringsForLaterDeletion.Count <= 0) return;
 
-            ShowMessageFromServer("{0}These unrenamed grid(s) may be deleted later:\n{1}",
+            ShowMessageFromServer("{0} unrenamed grid(s) may be deleted later:\n{1}",
                 context.NameStringsForLaterDeletion.Count, string.Join(",\n", context.NameStringsForLaterDeletion));
             MyAPIGateway.Utilities.ShowNotification("Server: Offline owner grid cleanup is configured!", 30000,
                 MyFontEnum.Green);

@@ -26,10 +26,7 @@ namespace ServerTools.Updateables.Deleter
 
 			if (context.CurrentEntitySlimBlocks.IsAttachedWheelGrid())
 				return false;
-            // probably dont need this
-            //if (context.CurrentEntitySlimBlocks.Any(slimBlock => slimBlock.FatBlock != null && (slimBlock.FatBlock is IMyPistonTop || slimBlock.FatBlock is IMyMotorRotor || slimBlock.FatBlock is IMyMotorAdvancedRotor)))
-            //    return false;
-
+    
             return context.CurrentEntitySlimBlocks.Any(slimBlock => slimBlock.CurrentDamage > 0);
 		}
 
@@ -38,8 +35,8 @@ namespace ServerTools.Updateables.Deleter
 			if (context.EntitiesForDeletion.Count == 0)
 				return;
 
-			ShowMessageFromServer("Deleted {0} grid(s) that had fewer than {1} blocks, no players within {2} m, and some of the blocks were damaged: {3}.",
-				context.EntitiesForDeletion.Count, blockCountThreshold, context.PlayerDistanceThreshold, string.Join(", ", context.EntitiesForDeletionNames));
+			ShowMessageFromServer("Deleted {0} damaged grid(s) with less than {1} blocks:\n{3}.",
+				context.EntitiesForDeletion.Count, blockCountThreshold, context.PlayerDistanceThreshold, string.Join(",\n", context.EntitiesForDeletionNames));
 		}
 	}
 }
